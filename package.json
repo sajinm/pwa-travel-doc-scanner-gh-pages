@@ -1,0 +1,14 @@
+{
+  "name": "travel-doc-pwa-scanner",
+  "version": "1.0.0",
+  "description": "PWA to OCR credit cards, boarding passes and QR codes from a single image.",
+  "private": true,
+  "scripts": {
+    "start": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "devDependencies": {
+    "vite": "latest"
+  }
+}

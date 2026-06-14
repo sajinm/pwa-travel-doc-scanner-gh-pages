@@ -1,0 +1,14 @@
+{
+  "name": "Travel Access Scanner",
+  "short_name": "AccessScan",
+  "description": "PWA OCR and QR scanner for travel access documents.",
+  "start_url": "./",
+  "display": "standalone",
+  "scope": "./",
+  "background_color": "#f5f7fb",
+  "theme_color": "#111827",
+  "icons": [
+    { "src": "assets/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

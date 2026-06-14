@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <title>Travel Access Scanner PWA</title>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="stylesheet" href="./styles.css" />
+
+  <!-- Browser OCR + QR libraries. For enterprise, self-host these files and pin versions. -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js" defer></script>
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">PWA · Camera · OCR · QR · Classification</p>
+        <h1>Travel Access Scanner</h1>
+        <p class="subtitle">Capture one image containing multiple credit cards, boarding passes and QR codes. The app extracts visible text, masks sensitive card numbers, decodes QR codes and classifies each item.</p>
+      </div>
+      <button id="installBtn" class="ghost hidden">Install PWA</button>
+    </header>
+
+    <section class="panel controls">
+      <div class="actions">
+        <button id="startCameraBtn">Start camera</button>
+        <button id="captureBtn" disabled>Capture</button>
+        <label class="fileLabel">
+          Upload image
+          <input id="fileInput" type="file" accept="image/*" capture="environment" />
+        </label>
+        <button id="loadSampleBtn" class="secondary">Load sample</button>
+        <button id="analyzeBtn" class="primary" disabled>Analyze</button>
+      </div>
+      <p class="hint">Processing runs in the browser. Do not persist raw images or unmasked PANs in production.</p>
+    </section>
+
+    <section class="workspace">
+      <div class="panel mediaPanel">
+        <video id="video" playsinline muted></video>
+        <canvas id="canvas"></canvas>
+      </div>
+
+      <aside class="panel statusPanel">
+        <h2>Status</h2>
+        <div id="status" class="status">Ready. Use camera, upload an image, or load the bundled sample.</div>
+        <div class="progressWrap">
+          <div id="progressBar" class="progressBar"></div>
+        </div>
+        <div class="stats">
+          <div><strong id="statText">0</strong><span>text chars</span></div>
+          <div><strong id="statItems">0</strong><span>items</span></div>
+          <div><strong id="statQr">0</strong><span>QR codes</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="panel resultsPanel">
+      <div class="sectionHeader">
+        <h2>Identified items</h2>
+        <button id="copyJsonBtn" class="ghost" disabled>Copy JSON</button>
+      </div>
+      <div id="items" class="cards empty">No results yet.</div>
+    </section>
+
+    <section class="panel textPanel">
+      <h2>Full text extract</h2>
+      <pre id="textOutput">No OCR text yet.</pre>
+    </section>
+
+    <section class="panel jsonPanel">
+      <h2>Structured output</h2>
+      <pre id="jsonOutput">{}</pre>
+    </section>
+  </main>
+</body>
+</html>
