@@ -17,9 +17,9 @@
   <main class="shell">
     <header class="hero">
       <div>
-        <p class="eyebrow">PWA · Camera · OCR · QR · Classification</p>
+        <p class="eyebrow">PWA · Camera · OCR · QR/PDF417 · Card first 8</p>
         <h1>Travel Access Scanner</h1>
-        <p class="subtitle">Capture one image containing multiple credit cards, boarding passes and QR codes. The app extracts visible text, masks sensitive card numbers, decodes QR codes and classifies each item.</p>
+        <p class="subtitle">Capture one image containing credit cards, boarding passes and access QR/barcodes. The app extracts text, decodes boarding-pass QR/PDF417/Aztec where the browser supports it, classifies items, and reads only the first 8 digits from selected card images.</p>
       </div>
       <button id="installBtn" class="ghost hidden">Install PWA</button>
     </header>
@@ -33,15 +33,20 @@
           <input id="fileInput" type="file" accept="image/*" capture="environment" />
         </label>
         <button id="loadSampleBtn" class="secondary">Load sample</button>
-        <button id="analyzeBtn" class="primary" disabled>Analyze</button>
+        <button id="analyzeBtn" class="primary" disabled>Analyze full image</button>
+        <button id="analyzeSelectionBtn" class="primary" disabled>Analyze selected area</button>
+        <button id="clearSelectionBtn" class="ghost" disabled>Clear selection</button>
       </div>
-      <p class="hint">Processing runs in the browser. Do not persist raw images or unmasked PANs in production.</p>
+      <p class="hint">For poor OCR on card numbers: draw a box around one card, then tap <strong>Analyze selected area</strong>. The app keeps only the first 8 digits and masks the rest.</p>
     </section>
 
     <section class="workspace">
       <div class="panel mediaPanel">
         <video id="video" playsinline muted></video>
-        <canvas id="canvas"></canvas>
+        <div id="canvasWrap" class="canvasWrap">
+          <canvas id="canvas"></canvas>
+          <canvas id="overlayCanvas" aria-label="Selection and detection overlay"></canvas>
+        </div>
       </div>
 
       <aside class="panel statusPanel">
@@ -53,7 +58,12 @@
         <div class="stats">
           <div><strong id="statText">0</strong><span>text chars</span></div>
           <div><strong id="statItems">0</strong><span>items</span></div>
-          <div><strong id="statQr">0</strong><span>QR codes</span></div>
+          <div><strong id="statBarcode">0</strong><span>barcodes</span></div>
+          <div><strong id="statCard8">0</strong><span>card first 8</span></div>
+        </div>
+        <div class="tips">
+          <strong>Best results</strong>
+          <p>Use bright light, avoid glare, keep the card flat, and crop tightly around one document when reading card digits.</p>
         </div>
       </aside>
     </section>

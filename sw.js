@@ -1,4 +1,4 @@
-const CACHE_NAME = 'travel-access-scanner-gh-pages-v1';
+const CACHE_NAME = 'travel-access-scanner-gh-pages-v2';
 
 // Relative paths keep the PWA working under a GitHub Pages project URL:
 // https://<user>.github.io/<repo>/
